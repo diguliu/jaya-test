@@ -8,11 +8,11 @@ default: &default
 
 development:
   <<: *default
-  database: development
+  database: octo_development
 test:
   <<: *default
-  database: test
+  database: octo_test
 
 production:
   <<: *default
-  database: production
+  database: octo_production
