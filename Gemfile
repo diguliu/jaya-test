@@ -8,6 +8,7 @@ gem 'pg', '~> 1.1.4'
 gem 'puma', '~> 3.11'
 gem 'bootsnap', '>= 1.4.2', require: false
 gem 'dotenv-rails', '~> 2.7.5'
+gem 'foreman'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
