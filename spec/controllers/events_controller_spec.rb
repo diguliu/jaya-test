@@ -22,6 +22,11 @@ RSpec.describe EventsController, type: :controller do
       expect(ids).to include(e2.id)
       expect(ids).to_not include(e3.id)
     end
+
+    it 'warns about missing issue' do
+      get :index, params: { issue_id: '' }
+      expect(response).to have_http_status(:bad_request)
+    end
   end
 
   describe "GET #create" do
@@ -45,6 +50,18 @@ RSpec.describe EventsController, type: :controller do
       expect(parsed_response['issue_id']).to eql(number)
       expect(parsed_response['action']).to eql(action_name)
       expect(Issue.find_by_id(number)).to_not be_nil
+    end
+
+    it 'warns about missing issue' do
+      action_name = 'open'
+      get :create, params: { action: action_name }
+      expect(response).to have_http_status(:bad_request)
+    end
+
+    it 'warns about missing action' do
+      number = 999
+      get :create, params: { issue: {number: number} }
+      expect(response).to have_http_status(:bad_request)
     end
   end
 end
