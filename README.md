@@ -1,4 +1,4 @@
-# Heat
+# Octo Events
 
 A REST API for registering issue events triggered by Github webhooks.
 
