@@ -21,5 +21,4 @@ rspec:
   variables:
   script:
     - bundle exec rails db:migrate
-    - bundle exec rails db:seed
     - bundle exec rspec spec
