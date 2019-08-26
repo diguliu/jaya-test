@@ -6,7 +6,7 @@ class EventsController < ApplicationController
   end
 
   def create
-    @event = Event.new(issue: @issue, action: params[:action_name])
+    @event = Event.new(issue: @issue, action: action_name)
     if @event.save
       render json: @event
     else
@@ -16,8 +16,15 @@ class EventsController < ApplicationController
 
   private
 
+  # Get action straight from query or request parameters due to name conflict
+  # with controller action on params.
+  def action_name
+     request.query_parameters[:action] ||
+      request.request_parameters[:action]
+  end
+
   def load_issue
-    id = params[:issue_id] || params[:number]
+    id = params[:issue_id] || params[:issue][:number]
     @issue = Issue.find_or_create_by(id: id)
   end
 end

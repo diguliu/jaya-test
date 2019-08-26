@@ -28,7 +28,7 @@ RSpec.describe EventsController, type: :controller do
     it "creates a new event on existing issue" do
       action_name = 'open'
 
-      get :create, params: { number: issue.id, action_name: action_name }
+      get :create, params: { issue: {number: issue.id}, action: action_name }
 
       expect(response).to have_http_status(:success)
       expect(parsed_response['issue_id']).to eql(issue.id)
@@ -39,7 +39,7 @@ RSpec.describe EventsController, type: :controller do
       number = 999
       action_name = 'open'
 
-      get :create, params: { number: number, action_name: action_name }
+      get :create, params: { issue: {number: number}, action: action_name }
 
       expect(response).to have_http_status(:success)
       expect(parsed_response['issue_id']).to eql(number)
