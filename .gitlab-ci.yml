@@ -22,3 +22,15 @@ rspec:
   script:
     - bundle exec rails db:migrate
     - bundle exec rspec spec
+
+deploy:
+  stage: deploy
+  variables:
+    HEROKU_APP_NAME: diguliu-octo
+  dependencies:
+    - rspec
+  only:
+    - master
+  script:
+    - gem install dpl
+    - dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
