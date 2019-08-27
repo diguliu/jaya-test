@@ -72,6 +72,44 @@ Here are the available endpoints:
 *  **GET** /issues/:issue\_id/events: retrieves every event of an issue
 *  **POST** /events (issue\_id:string, action:string): register an event on an issue
 
+## Authentication
+
+Autentication is needed in the application in order to use the event creation endpoint. There are 2 different methods of authentication:
+1. Secret token
+2. Login
+
+### Secret Token
+
+To authenticate via secret token you need to generate one and define it on the `.env` file. You can generate a secure token like this:
+```
+ruby -rsecurerandom -e 'puts SecureRandom.hex(20)'
+```
+
+Then place it on the `.env` file.
+
+```
+# .env
+
+SECRET_TOKEN=674324f85ed23105a95a095d0739716feb543968
+```
+
+Finally you just need to configure this token on the Gihub Webhook.
+
+### Login
+
+To authenticate via login you need to define a login and a password and store them on them `.env` file. You must digest your password with SHA1 before defining it:
+```
+Digest::SHA2.hexdigest 'abc'
+```
+
+Then set it on the `.env`:
+```
+LOGIN=jack
+PASSWORD=ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+```
+
+Now you can post create request passing `login` and `password` to authentica.
+
 ## Deployment
 
 The only deployment available right now is via Gitlab CI/CD to a Heroku app using dpl. Look for further documentation at: https://github.com/travis-ci/dpl

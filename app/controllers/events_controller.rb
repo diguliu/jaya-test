@@ -1,4 +1,5 @@
 class EventsController < ApplicationController
+  before_action :authenticate!, only: [:create]
   before_action :load_issue
   before_action :load_action, only: [:create]
 
@@ -16,6 +17,12 @@ class EventsController < ApplicationController
   end
 
   private
+
+  def authenticate!
+    unless Authentication.checks?(request)
+      render json: 'Not authorized!', status: :unauthorized
+    end
+  end
 
   def load_issue
     id = params[:issue_id] || (params[:issue] && params[:issue][:number])
