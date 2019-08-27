@@ -9,7 +9,7 @@ class Authentication::TokenMethod
     end
 
     def local_signature(body)
-      'sha1=' + OpenSSL::HMAC.hexdigest(digest, token, body).to_s
+      'sha1=' + OpenSSL::HMAC.hexdigest(digest, token, body.to_s)
     end
 
     def compare(local_sign, request_sign)
