@@ -57,15 +57,17 @@ RSpec.describe AuthenticationService::TokenMethod do
     end
 
     it 'returns false when singatures do not match' do
-      sign = 'sha1=0ef7ac11eb30702ffdd34bd75109943435a51998'
-      request = double('request', body: double('body', read: 'signature'), env: {'HTTP_X_HUB_SIGNATURE' => sign})
+      body = 'right signature'
+      sign = described_class.local_signature('wrong signature')
+      request = double('request', body: double('body', read: body), env: {'HTTP_X_HUB_SIGNATURE' => sign})
 
       expect(described_class.checks?(request)).to be_falsey
     end
 
     it 'returns true when singature matches' do
-      sign = 'sha1=0ef7ac11eb30702ffdd34bd75109943435a51997'
-      request = double('request', body: double('body', read: 'signature'), env: {'HTTP_X_HUB_SIGNATURE' => sign})
+      body = 'right signature'
+      sign = described_class.local_signature(body)
+      request = double('request', body: double('body', read: body), env: {'HTTP_X_HUB_SIGNATURE' => sign})
 
       expect(described_class.checks?(request)).to be_truthy
     end
