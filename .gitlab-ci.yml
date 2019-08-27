@@ -10,6 +10,7 @@ variables:
   RAILS_ENV: test
   LOGIN: xxx
   PASSWORD: xxx
+  SECRET_TOKEN: 88e67b209fa6eb489b299e43e377e34d2e56840d
 
 cache:
   paths:
