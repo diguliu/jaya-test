@@ -1,4 +1,4 @@
-class Authentication::TokenMethod
+class AuthenticationService::TokenMethod
   class << self
     def token
       ENV['SECRET_TOKEN']

@@ -1,4 +1,4 @@
-class Authentication::LoginMethod
+class AuthenticationService::LoginMethod
   class << self
     def local_login
       ENV['LOGIN']

@@ -19,7 +19,7 @@ class EventsController < ApplicationController
   private
 
   def authenticate!
-    unless Authentication.checks?(request)
+    unless AuthenticationService.checks?(request)
       render json: 'Not authorized!', status: :unauthorized
     end
   end
