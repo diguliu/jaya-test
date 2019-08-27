@@ -97,15 +97,10 @@ Finally you just need to configure this token on the Gihub Webhook.
 
 ### Login
 
-To authenticate via login you need to define a login and a password and store them on them `.env` file. You must digest your password with SHA1 before defining it:
-```
-Digest::SHA2.hexdigest 'abc'
-```
-
-Then set it on the `.env`:
+To authenticate via login you need to define a login and a password and store them on them `.env` file.
 ```
 LOGIN=jack
-PASSWORD=ba7816bf8f01cfea414140de5dae2223b00361a396177a9cb410ff61f20015ad
+PASSWORD=abc
 ```
 
 Now you can post create request passing `login` and `password` to authentica.

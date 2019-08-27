@@ -7,6 +7,10 @@ RSpec.describe EventsController, type: :controller do
     @parsed_response ||= JSON.parse(response.body)
   end
 
+  def auth_params
+    { login: ENV['LOGIN'], password: ENV['PASSWORD'] }
+  end
+
   describe "GET #index" do
     it "list events" do
       another_issues = Issue.create!
@@ -33,7 +37,9 @@ RSpec.describe EventsController, type: :controller do
     it "creates a new event on existing issue" do
       action_name = 'open'
 
-      get :create, params: { issue: {number: issue.id}, action: action_name }
+      get :create, params: auth_params.merge({
+        issue: {number: issue.id}, action: action_name
+      })
 
       expect(response).to have_http_status(:success)
       expect(parsed_response['issue_id']).to eql(issue.id)
@@ -44,7 +50,9 @@ RSpec.describe EventsController, type: :controller do
       number = 999
       action_name = 'open'
 
-      get :create, params: { issue: {number: number}, action: action_name }
+      get :create, params: auth_params.merge({
+        issue: {number: number}, action: action_name
+      })
 
       expect(response).to have_http_status(:success)
       expect(parsed_response['issue_id']).to eql(number)
@@ -54,13 +62,13 @@ RSpec.describe EventsController, type: :controller do
 
     it 'warns about missing issue' do
       action_name = 'open'
-      get :create, params: { action: action_name }
+      get :create, params: auth_params.merge({ action: action_name })
       expect(response).to have_http_status(:bad_request)
     end
 
     it 'warns about missing action' do
       number = 999
-      get :create, params: { issue: {number: number} }
+      get :create, params: auth_params.merge({ issue: {number: number} })
       expect(response).to have_http_status(:bad_request)
     end
   end

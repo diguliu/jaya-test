@@ -8,6 +8,8 @@ variables:
   DB_USERNAME: postgres
   DB_PASSWORD: postgres
   RAILS_ENV: test
+  LOGIN: xxx
+  PASSWORD: xxx
 
 cache:
   paths:
